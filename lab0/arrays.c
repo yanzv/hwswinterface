@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
   // C does not track array lengths, we have to specify
   // how many elements the array contains.
   //
-  // TODO(1): What happens if the second argument is set
+D  // TODO(1): What happens if the second argument is set
   // to 11 instead? How about 100? 1000? Make sure to set
   // the second argument back to 10 when you are done
   // testing.
