@@ -1,7 +1,7 @@
 /* 
  * CSE 351 HW1 (Data Lab )
  * 
- * <Please put your name and userid here>
+ * <Yan Zverev yanz67@gmail.com>
  * 
  * bits.c - Source file with your solutions to the Lab.
  *          This is the file you will hand in to your instructor.
@@ -110,7 +110,11 @@ NOTES:
  */
 
 
+
+
 #endif
+
+
 // Rating: 1
 /* 
  * bitAnd - x&y using only ~ and | 
@@ -118,20 +122,28 @@ NOTES:
  *   Legal ops: ~ |
  *   Max ops: 8
  *   Rating: 1
+ 
+ 
  */
+
 int bitAnd(int x, int y) {
-  return 2;
+
+	
+  int c = ~(~x | ~y);
+  return c;
 }
 /* 
  * bitXor - x^y using only ~ and & 
  *   Example: bitXor(4, 5) = 1
  *   Legal ops: ~ &
  *   Max ops: 14
- *   Rating: 1
+ *   Rating: 1 
  */
 int bitXor(int x, int y) {
-  return 2;
+
+  return ~(~x & ~y) &  ~(x & y);
 }
+
 /* 
  * thirdBits - return word with every third bit (starting from the LSB) set to 1
  * and the rest set to 0
@@ -140,7 +152,14 @@ int bitXor(int x, int y) {
  *   Rating: 1
  */
 int thirdBits(void) {
-  return 2;
+
+	int a = 0x49;
+	int b = (a << 9);
+	int c = a + b;
+	int x = (c << 18) + c;
+	
+
+  return x;
 }
 // Rating: 2
 /* 
@@ -162,9 +181,13 @@ int fitsBits(int x, int n) {
  *  Legal ops: ! ~ & ^ | + << >>
  *  Max ops: 10
  *  Rating: 2
+ 
+ 
  */
 int sign(int x) {
-  return 2;
+	
+	int d = (x>>31);
+  return (!x^1) | d;
 }
 /* 
  * getByte - Extract byte n from word x
@@ -175,7 +198,10 @@ int sign(int x) {
  *   Rating: 2
  */
 int getByte(int x, int n) {
-  return 2;
+	int a = 0xFF << (1<<n);
+	int b = x & a;
+	int c = b >> (1<<n);
+  return c;
 }
 // Rating: 3
 /* 
@@ -187,8 +213,16 @@ int getByte(int x, int n) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-  return 2;
+  int ba = 1<<31; // set MSB to 1 
+	int a = x & ba; // MSB will be 1 if negative or 0 if positive number
+	
+	int numShifted = x>>n; //shift the number
+	int msbShifted = (a >> n) << 1; //shift the MSB by n -1 
+	
+	//if negative ^ the leading 1's to create a logical shift
+	return msbShifted ^ numShifted;
 }
+
 /* 
  * addOK - Determine if can compute x+y without overflow
  *   Example: addOK(0x80000000,0x80000000) = 0,
@@ -220,6 +254,9 @@ int bang(int x) {
  *   Rating: 3
  */
 int conditional(int x, int y, int z) {
+
+	
+	
   return 2;
 }
 // Extra Credit: Rating: 4
@@ -234,3 +271,8 @@ int conditional(int x, int y, int z) {
 int isPower2(int x) {
   return 2;
 }
+
+
+
+
+
