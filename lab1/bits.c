@@ -232,7 +232,11 @@ int logicalShift(int x, int n) {
  *   Rating: 3
  */
 int addOK(int x, int y) {
-  return 2;
+
+	int c = x^y;
+	int b = c>>31;
+
+  return b&1;
 }
 // Rating: 4
 /* 
@@ -240,10 +244,14 @@ int addOK(int x, int y) {
  *   Examples: bang(3) = 0, bang(0) = 1
  *   Legal ops: ~ & ^ | + << >>
  *   Max ops: 12
- *   Rating: 4 
+ *   Rating: 4f
  */
 int bang(int x) {
-  return 2;
+	int b = ~x+x;
+	int c = b+1;
+
+
+  return b^c;
 }
 // Extra Credit: Rating: 3
 /* 
