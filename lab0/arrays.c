@@ -10,14 +10,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+
 // Fill the given array with values. Note that C doesn't
 // keep track of the length of arrays, so we have to
 // specify it explictly here.
 void fillArray(int* array, int len) {
   printf("Filling an array at address %p with %d "
-         "values\n", array, len);
+         "values\n", &array, len);
   for (int i = 0; i < len; ++i) {
     array[i] = i * 3 + 2;
+    printf("array pos[%d] at location [%p]\n",i,&array[i]);
     // assert() verifies that the given condition is true
     // and exits the program otherwise. This is just a
     // "sanity check" to make sure that the line of code
@@ -32,6 +35,7 @@ void fillArray(int* array, int len) {
 // struct containing four integers as FourInts.
 typedef struct {
   int a, b, c, d;
+  char *myChar;
 } FourInts;
 
 // main() is the entry point of the program.
@@ -49,7 +53,7 @@ int main(int argc, char* argv[]) {
   // C does not track array lengths, we have to specify
   // how many elements the array contains.
   //
-D  // TODO(1): What happens if the second argument is set
+  // TODO(1): What happens if the second argument is set
   // to 11 instead? How about 100? 1000? Make sure to set
   // the second argument back to 10 when you are done
   // testing.
@@ -86,7 +90,9 @@ D  // TODO(1): What happens if the second argument is set
   // (as in a pointer to a FourInts struct), we can
   // use a cast to pretend that it is actually an array
   // of integers instead.
+  printf("location for four_ints first element %p\n",&four_ints.a);
   fillArray((int*) &four_ints, 4);
+  
   // We can confirm that fillArray updated the values
   // in the FourInts struct:
   assert(four_ints.a == 2);
@@ -131,5 +137,20 @@ D  // TODO(1): What happens if the second argument is set
   // you would expect. (Hint, you'll need to use the
   // -> operator to access fields of a FourInts*
   // variable instead of the . operator).
+  FourInts *fourInts = malloc(sizeof(FourInts));
+  fillArray((int *) fourInts,4);
+  assert(fourInts->a == 2);
+  assert(fourInts->b == 5);
+  assert(fourInts->c == 8);
+  assert(fourInts->d == 11);
+  fourInts->myChar = malloc(sizeof(char));
+  *(fourInts->myChar) = 'a';
+  assert(*(fourInts->myChar) == 'a');
+  printf("fourInts Size:%lu\n",sizeof(FourInts));
+  printf("My char:%c",*(fourInts->myChar));
+  free(fourInts->myChar);
+  free(fourInts);
+  
+  
   return 0;
 }
